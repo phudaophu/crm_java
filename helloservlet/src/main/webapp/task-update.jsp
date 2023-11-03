@@ -172,14 +172,14 @@
                                     <label class="col-md-12">Ngày bắt đầu</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="dd/MM/yyyy"
-                                            class="form-control form-control-line" name="startdate02" value="${reqAttributeStartDate} "> 
+                                            class="form-control form-control-line" name="startdate02"  value=${reqAttributeStartDate!=""?reqAttributeStartDate:""}> 
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày kết thúc</label>
                                     <div class="col-md-12">
                                         <input type="text" placeholder="dd/MM/yyyy"
-                                            class="form-control form-control-line" name="enddate02" value="${reqAttributeEndDate }"> 
+                                            class="form-control form-control-line" name="enddate02" value=${reqAttributeEndDate!=""?reqAttributeEndDate:""}> 
                                     </div>
                                 </div>
                                 <div class="form-group">

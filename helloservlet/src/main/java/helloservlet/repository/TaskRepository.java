@@ -15,6 +15,40 @@ public class TaskRepository {
 	
 	
 
+	public List<TaskEntity> findByUserIdAndStatusId (int userId, int statusId) {
+		List<TaskEntity> taskList = new ArrayList<TaskEntity>();
+		
+		String query = "SELECT * FROM tasks WHERE user_id=? AND status_id=?;";
+		
+		Connection connection = MysqlConfig.getConnection();
+		
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, userId);
+			preparedStatement.setInt(2, statusId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				
+				TaskEntity taskEntity = new TaskEntity();
+				taskEntity.setId(resultSet.getInt("id"));
+				taskEntity.setName(resultSet.getString("name"));
+				taskEntity.setStartDate(resultSet.getDate("start_date"));
+				taskEntity.setEndDate(resultSet.getDate("end_date"));
+				taskEntity.setIdUser(resultSet.getInt("user_id"));
+				taskEntity.setIdJob(resultSet.getInt("job_id"));
+				taskEntity.setIdStatus(resultSet.getInt("status_id"));
+				
+				taskList.add(taskEntity);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Lỗi findByUserIdAndStatusId task: "+e.getLocalizedMessage());
+		}
+		
+		return taskList;
+	}
 	
 	public int updateById(int jobId, String name, int userId, Date startDate, Date endDate, int statusId, int id) {
 		int count = 0;

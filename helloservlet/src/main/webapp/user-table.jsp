@@ -162,9 +162,9 @@
 	                                            <td>${user.getEmail()}</td>
 	                                            <td>${user.getRoleName()}</td>
 	                                            <td>
-	                                                <a href="<%= path%>/user-update?email=${user.getEmail()}&phoneno=${user.getPhonenumber()}&roleid=${user.getIdRole()}&id=${user.getId()}" class="btn btn-sm btn-primary">Sửa</a>
+	                                                <a href="<%= path%>/user-update?fullname=${user.getFullname()}&email=${user.getEmail()}&phoneno=${user.getPhonenumber()}&roleid=${user.getIdRole()}&id=${user.getId()}" class="btn btn-sm btn-primary">Sửa</a>
 	                                                <a href="<%= path%>/user-delete?id=${user.id}" class="btn btn-sm btn-danger">Xóa</a>
-	                                                <a href="user-details.html" class="btn btn-sm btn-info">Xem</a>
+	                                                <a href="<%= path%>/user-details?id=${user.id}" class="btn btn-sm btn-info">Xem</a>
 	                                            </td>
 	                                        </tr>
                                         

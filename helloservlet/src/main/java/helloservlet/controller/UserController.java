@@ -1,7 +1,7 @@
 package helloservlet.controller;
 import java.io.IOException;
 import java.util.List;
-
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import helloservlet.entity.RoleEntity;
+import helloservlet.entity.TaskEntity;
 import helloservlet.entity.UserEntity;
 import helloservlet.service.UserService;
 
-@WebServlet(name="userController",urlPatterns = {"/user-add","/user","/user-delete","/user-update"})
+@WebServlet(name="userController",urlPatterns = {"/user-add","/user","/user-delete","/user-update","/user-details"})
 public class UserController extends HttpServlet{
 	
 	UserService userService = new UserService();
@@ -32,6 +33,8 @@ public class UserController extends HttpServlet{
 			doGetUserDelete(req,resp);
 		}else if(path.equals("/user-update")){
 			doGetUserUpdate(req,resp);
+		}else if (path.equals("/user-details")) {
+			doGetUserDetails(req,resp);
 		}
 	}
 	
@@ -46,6 +49,36 @@ public class UserController extends HttpServlet{
 		}else if(path.equals("/user-update")){
 			doPostUserUpdate(req,resp);
 		}
+	}
+	
+	private void doGetUserDetails (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		tempUserId = Integer.parseInt(req.getParameter("id")) ;
+		//int statusId = 1;
+		List<Object> objList = new ArrayList<Object>();
+		
+		//List<TaskEntity> taskList = userService.findByUserIdAndStatusId(tempUserId, statusId);
+		
+		// Get Task List by UserId And StatusId =1, StatusId =2, Status =3
+		for(int i = 1; i<4;i++) {
+			List<TaskEntity> getTaskList = userService.findByUserIdAndStatusId(tempUserId, i);
+			objList.add(getTaskList);
+		}
+		req.setAttribute("reqAttributeTaskList1", objList.get(0));
+		req.setAttribute("reqAttributeTaskList2", objList.get(1));
+		req.setAttribute("reqAttributeTaskList3", objList.get(2));
+		// Get User by user id
+		UserEntity userEntity = userService.findById(tempUserId);
+		req.setAttribute("reqAttributeUser", userEntity);
+		
+		// Calculate task percentage 
+		int percentList[] =  userService.calculateTaskPercent(tempUserId);
+
+		req.setAttribute("reqAttributePercent1", percentList[0]);
+		req.setAttribute("reqAttributePercent2", percentList[1]);
+		req.setAttribute("reqAttributePercent3", percentList[2]);
+		
+		req.getRequestDispatcher("user-details.jsp").forward(req, resp);
 	}
 	
 	private void doGetUserAdd (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

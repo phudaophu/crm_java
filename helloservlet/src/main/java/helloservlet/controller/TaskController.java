@@ -83,8 +83,22 @@ public class TaskController extends HttpServlet{
 	}
 	
 	protected void doPostTaskUpdate(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// job_id02
+		// ghi đè tên của encoding đang sử dụng thành encoding mà mình muốn, dùng trước khi get parameter   
+		req.setCharacterEncoding("UTF-8");
 		
-		req.getRequestDispatcher("task-update.jsp").forward(req, resp);
+		int jobId = Integer.parseInt(req.getParameter("job_id02"));
+		String taskName = req.getParameter("taskname02");
+		int userId = Integer.parseInt(req.getParameter("user_id02"));
+		int statusId = Integer.parseInt(req.getParameter("status_id02"));
+		
+		String startDateString = req.getParameter("startdate02");
+		String endDateString = req.getParameter("enddate02");
+		
+		
+		
+		//req.getRequestDispatcher("task-update.jsp").forward(req, resp);
+		resp.sendRedirect(req.getContextPath()+"/task");
 	}
 
 	
@@ -107,7 +121,7 @@ public class TaskController extends HttpServlet{
 	}
 	
 	protected void doGetTaskAdd(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+		// load jobs and users
 		List<JobEntity> jobList = taskService.findAllJobs();
 		List<UserEntity> userList = taskService.findAllUsers();
 		
@@ -116,9 +130,17 @@ public class TaskController extends HttpServlet{
 		
 		System.out.println("Job List: "+jobList.size());
 		System.out.println("User List: "+userList.size());
+		
 		req.getRequestDispatcher("task-add.jsp").forward(req, resp);
 	}
 	protected void doPostTaskAdd(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// load jobs and users
+		List<JobEntity> jobList = taskService.findAllJobs();
+		List<UserEntity> userList = taskService.findAllUsers();
+		
+		req.setAttribute("reqAttributeJobList", jobList);
+		req.setAttribute("reqAttributeUserList", userList);
+		
 		
 		// ghi đè tên của encoding đang sử dụng thành encoding mà mình muốn, dùng trước khi get parameter   
 		req.setCharacterEncoding("UTF-8");

@@ -4,14 +4,43 @@ import java.util.List;
 
 import helloservlet.entity.UserEntity;
 import helloservlet.entity.RoleEntity;
+import helloservlet.entity.TaskEntity;
 import helloservlet.repository.UserRepository;
 import helloservlet.repository.RoleRepository;
+import helloservlet.repository.TaskRepository;
 public class UserService {
 
 	UserRepository userRepository = new UserRepository();
 	RoleRepository roleRepository = new RoleRepository();
-	
+	TaskRepository taskRepository = new TaskRepository();
 
+	
+	public int[] calculateTaskPercent(int userId){
+		int sumListSize = 0;
+		int percentList[] = {0,0,0};
+		for (int i = 1; i<4; i++) {
+			int listSize = taskRepository.findByUserIdAndStatusId(userId, i).size();
+			percentList[i-1] = listSize;
+			sumListSize+=listSize;
+		}
+		if (sumListSize!=0) {
+			// Calculate total size in arrayList
+			for(int t=0; t< percentList.length; t++) {
+				percentList[t] = percentList[t]*100/sumListSize;
+			}
+		}
+		
+		return percentList;
+	}
+	
+	public UserEntity findById(int id) {
+		return userRepository.findById(id);
+	}
+	
+	public List<TaskEntity> findByUserIdAndStatusId (int userId, int statusId) {
+		return taskRepository.findByUserIdAndStatusId(userId, statusId);
+	}
+	
 	public boolean updateInfoById(String email, String phonenumber, int idRole, int id) {
 		return userRepository.updateInfoById(email,phonenumber, idRole, id) >0;
 	}
@@ -87,7 +116,6 @@ public class UserService {
 	
 	public boolean insert(String email, String password, String fullname, String phonenumber, int idRole) {
 		return userRepository.insert(email, password, fullname, phonenumber, idRole)>0;
-		
 	}
 	
 }

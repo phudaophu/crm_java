@@ -146,9 +146,6 @@
                                              <c:forEach var="job" items="${reqAttributeJobList}">
                                         	    <option value="${job.getId()}">${job.getName()}</option>
                                         	 </c:forEach>
-<!--                                             <option>Dự án CRM</option>
-                                            <option>Dự án Elearning</option>
-                                            <option>Dự án Rạp chiếu phim</option>  -->
                                         </select>
                                     </div>
                                 </div>
@@ -167,8 +164,6 @@
                                         	    <option value="${user.getId()}">${user.getFullname()}</option>
                                         	 </c:forEach>
                                          
-<!--                                             <option>Trần Thị Lan</option>
-                                            <option>Cao Ngọc Hiếu</option> -->
                                         </select>
                                     </div>
                                 </div>
