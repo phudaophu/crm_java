@@ -35,12 +35,12 @@ public class LoginService {
 			
 
 		}else if (isLoginSuccess && remember ==null) {
-			System.out.println("Lưu cookie tạm 30s");
+			System.out.println("Lưu cookie tạm 10p");
 			cookieEmail.setValue(email);
 			cookiePassword.setValue(password);
 			
-			cookieEmail.setMaxAge(60*5);
-			cookiePassword.setMaxAge(60*5);
+			cookieEmail.setMaxAge(60*10);
+			cookiePassword.setMaxAge(60*10);
 			cookieRemember.setMaxAge(0);
 			
 

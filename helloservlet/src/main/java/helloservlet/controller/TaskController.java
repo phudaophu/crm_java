@@ -95,8 +95,21 @@ public class TaskController extends HttpServlet{
 		String startDateString = req.getParameter("startdate02");
 		String endDateString = req.getParameter("enddate02");
 		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 		
+		Date startDate = null;
+		Date endDate=null;
 		
+		try {
+			startDate = dateFormat.parse(startDateString);
+		}catch(Exception e) {}
+		
+		try {
+			endDate   = dateFormat.parse(endDateString);
+		}catch(Exception e) {}
+		
+		boolean isUpdated = taskService.updateById(jobId, taskName, userId, startDate, endDate, statusId, tempTaskId);
+		System.out.println("Update Task: "+isUpdated);
 		//req.getRequestDispatcher("task-update.jsp").forward(req, resp);
 		resp.sendRedirect(req.getContextPath()+"/task");
 	}

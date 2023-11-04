@@ -17,7 +17,8 @@ public class UserService {
 	
 	public int[] calculateTaskPercent(int userId){
 		int sumListSize = 0;
-		int percentList[] = {0,0,0};
+		float percentList[] = {0,0,0};
+		int percentListExchange[] = {0,0,0};
 		for (int i = 1; i<4; i++) {
 			int listSize = taskRepository.findByUserIdAndStatusId(userId, i).size();
 			percentList[i-1] = listSize;
@@ -25,12 +26,14 @@ public class UserService {
 		}
 		if (sumListSize!=0) {
 			// Calculate total size in arrayList
-			for(int t=0; t< percentList.length; t++) {
-				percentList[t] = percentList[t]*100/sumListSize;
+			for(int t=0; t< (percentList.length); t++) {
+				percentList[t] =  Math.round(percentList[t]*100/sumListSize);
+				percentListExchange[t] = (int)percentList[t];
 			}
+			
 		}
 		
-		return percentList;
+		return percentListExchange;
 	}
 	
 	public UserEntity findById(int id) {

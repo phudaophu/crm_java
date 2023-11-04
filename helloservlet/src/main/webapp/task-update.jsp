@@ -187,7 +187,7 @@
                                     <div class="col-md-12">
                                         <select class="form-control form-control-line" name="status_id02">
                                         	 <c:forEach var="status" items="${reqAttributeStatusList}">
-                                        	    <option value="${status.getId()}"  ${status.getId()==reqAttributeStatusId?"selected":"" }  >${status.getName()}</option>
+                                        	    <option value="${status.getId()}"  ${status.getId()==reqAttributeStatusId?"selected":"" } >${status.getName()}</option>
                                         	 </c:forEach>
                                          
                                         </select>

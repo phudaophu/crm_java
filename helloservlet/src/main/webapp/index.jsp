@@ -75,7 +75,7 @@
                                 <b class="hidden-xs">Cybersoft</b> 
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="profile.html">Thông tin cá nhân</a></li>
+                                <li><a href="<%= path%>/profile">Thông tin cá nhân</a></li>
                                 <li><a href="#">Thống kê công việc</a></li>
                                 <li class="divider"></li>
                                 <li><a href="#">Đăng xuất</a></li>
@@ -93,7 +93,7 @@
             <div class="sidebar-nav navbar-collapse slimscrollsidebar">
                 <ul class="nav" id="side-menu">
                     <li style="padding: 10px 0 0;">
-                        <a href="index.html" class="waves-effect"><i class="fa fa-clock-o fa-fw"
+                        <a href="<%= path%>/home" class="waves-effect"><i class="fa fa-clock-o fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a>
                     </li>
                     <li>

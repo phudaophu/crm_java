@@ -72,11 +72,11 @@ public class UserController extends HttpServlet{
 		req.setAttribute("reqAttributeUser", userEntity);
 		
 		// Calculate task percentage 
-		int percentList[] =  userService.calculateTaskPercent(tempUserId);
+		int percentListExchange[] =  userService.calculateTaskPercent(tempUserId);
 
-		req.setAttribute("reqAttributePercent1", percentList[0]);
-		req.setAttribute("reqAttributePercent2", percentList[1]);
-		req.setAttribute("reqAttributePercent3", percentList[2]);
+		req.setAttribute("reqAttributePercent1", percentListExchange[0]);
+		req.setAttribute("reqAttributePercent2", percentListExchange[1]);
+		req.setAttribute("reqAttributePercent3", percentListExchange[2]);
 		
 		req.getRequestDispatcher("user-details.jsp").forward(req, resp);
 	}

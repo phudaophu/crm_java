@@ -91,7 +91,7 @@
             <div class="sidebar-nav navbar-collapse slimscrollsidebar">
                 <ul class="nav" id="side-menu">
                     <li style="padding: 10px 0 0;">
-                        <a href="index.html" class="waves-effect"><i class="fa fa-clock-o fa-fw"
+                        <a href="<%= path%>/home" class="waves-effect"><i class="fa fa-clock-o fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a>
                     </li>
                     <li>
@@ -161,7 +161,7 @@
                                             <td>
                                                 <a href="<%= path%>/groupwork-update?name=${job.getName()}&startdate=${job.getStringStartDate()}&enddate=${job.getStringEndDate()}&id=${job.getId()}" class="btn btn-sm btn-primary">Sửa</a>
                                                 <a href="<%= path%>/groupwork-delete?id=${job.getId()}" class="btn btn-sm btn-danger">Xóa</a>
-                                                <a href="groupwork-details.html" class="btn btn-sm btn-info">Xem</a>
+                                                <a href="<%= path%>/groupwork-details?name=${job.getName()}&id=${job.getId()}" class="btn btn-sm btn-info">Xem</a>
                                             </td>
                                         </tr> 
                                     </c:forEach>

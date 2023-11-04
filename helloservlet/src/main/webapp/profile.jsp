@@ -91,23 +91,23 @@
             <div class="sidebar-nav navbar-collapse slimscrollsidebar">
                 <ul class="nav" id="side-menu">
                     <li style="padding: 10px 0 0;">
-                        <a href="index.html" class="waves-effect"><i class="fa fa-clock-o fa-fw"
+                        <a href="<%= path%>/home" class="waves-effect"><i class="fa fa-clock-o fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a>
                     </li>
                     <li>
-                        <a href="user-table.html" class="waves-effect"><i class="fa fa-user fa-fw"
+                        <a href="<%= path%>/user" class="waves-effect"><i class="fa fa-user fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Thành viên</span></a>
                     </li>
                     <li>
-                        <a href="role-table.html" class="waves-effect"><i class="fa fa-modx fa-fw"
+                        <a href="<%= path%>/role" class="waves-effect"><i class="fa fa-modx fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Quyền</span></a>
                     </li>
                     <li>
-                        <a href="groupwork.html" class="waves-effect"><i class="fa fa-table fa-fw"
+                        <a href="<%= path%>/groupwork" class="waves-effect"><i class="fa fa-table fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Dự án</span></a>
                     </li>
                     <li>
-                        <a href="task.html" class="waves-effect"><i class="fa fa-table fa-fw"
+                        <a href="<%= path%>/task" class="waves-effect"><i class="fa fa-table fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Công việc</span></a>
                     </li>
                     <li>
@@ -140,8 +140,8 @@
                                     <div class="user-content">
                                         <a href="javascript:void(0)"><img src="plugins/images/users/genu.jpg"
                                                 class="thumb-lg img-circle" alt="img"></a>
-                                        <h4 class="text-white">Nguyễn Văn Tèo</h4>
-                                        <h5 class="text-white">info.teo@gmail.com</h5>
+                                        <h4 class="text-white">${reqAttributeFullName }</h4>
+                                        <h5 class="text-white">${reqAttributeEmail}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +156,7 @@
                                 <div class="white-box">
                                     <div class="col-in row">
                                         <div class="col-xs-12">
-                                            <h3 class="counter text-right m-t-15 text-danger">20%</h3>
+                                            <h3 class="counter text-right m-t-15 text-danger">${reqAttributePercentageList[0]}%</h3>
                                         </div>
                                         <div class="col-xs-12">
                                             <i data-icon="E" class="linea-icon linea-basic"></i>
@@ -165,8 +165,8 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-danger" role="progressbar"
-                                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                                    style="width: 20%"></div>
+                                                    aria-valuenow="${reqAttributePercentageList[0]}" aria-valuemin="0" aria-valuemax="100"
+                                                    style="width: ${reqAttributePercentageList[0]}%"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -178,7 +178,7 @@
                                 <div class="white-box">
                                     <div class="col-in row">
                                         <div class="col-xs-12">
-                                            <h3 class="counter text-right m-t-15 text-megna">50%</h3>
+                                            <h3 class="counter text-right m-t-15 text-megna">${reqAttributePercentageList[1]}%</h3>
                                         </div>
                                         <div class="col-xs-12">
                                             <i class="linea-icon linea-basic" data-icon="&#xe01b;"></i>
@@ -187,8 +187,8 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-megna" role="progressbar"
-                                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                                    style="width: 50%"></div>
+                                                    aria-valuenow="${reqAttributePercentageList[1]}" aria-valuemin="0" aria-valuemax="100"
+                                                    style="width: ${reqAttributePercentageList[1]}%"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -200,7 +200,7 @@
                                 <div class="white-box">
                                     <div class="col-in row">
                                         <div class="col-xs-12">
-                                            <h3 class="counter text-right m-t-15 text-primary">30%</h3>
+                                            <h3 class="counter text-right m-t-15 text-primary">${reqAttributePercentageList[2]}%</h3>
                                         </div>
                                         <div class="col-xs-12">
                                             <i class="linea-icon linea-basic" data-icon="&#xe00b;"></i>
@@ -209,8 +209,8 @@
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="progress">
                                                 <div class="progress-bar progress-bar-primary" role="progressbar"
-                                                    aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"
-                                                    style="width: 30%"></div>
+                                                    aria-valuenow="${reqAttributePercentageList[2]}" aria-valuemin="0" aria-valuemax="100"
+                                                    style="width: ${reqAttributePercentageList[2]}%"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -242,7 +242,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                    <c:forEach var="task" items="${reqAttributeTaskList}" varStatus = "status">
+                                     	<tr>
+                                            <td>${status.index+1 }</td>
+                                            <td>${task.getName()}</td>
+                                            <td>${task.getJobName()}</td>
+                                            <td>${task.getStringStartDate()}</td>
+                                            <td>${task.getStringEndDate()}</td>
+                                            <td>${task.getStatusName()}</td>
+                                            <td>
+                                                <a href="<%= path%>/profile-edit?name=${task.getName()}&startdate=${task.getStringStartDate()}&enddate=${task.getStringEndDate()}&userid=${task.getIdUser()}&jobid=${task.getIdJob()}&statusid=${task.getIdStatus()}&id=${task.getId()}" class="btn btn-sm btn-primary">Cập nhật</a>
+                                            </td>
+                                        </tr>
+                                     </c:forEach>
+                                        <!-- <tr>
                                             <td>1</td>
                                             <td>Phân tích dự án</td>
                                             <td>Dự án CRM</td>
@@ -263,7 +276,7 @@
                                             <td>
                                                 <a href="profile-edit.html" class="btn btn-sm btn-primary">Cập nhật</a>
                                             </td>
-                                        </tr>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>

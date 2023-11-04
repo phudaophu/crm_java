@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %> 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,6 +32,8 @@
 </head>
 
 <body>
+	<% String path = request.getContextPath();%>
+
     <!-- Preloader -->
     <div class="preloader">
         <div class="cssload-speeding-wheel"></div>
@@ -91,19 +97,19 @@
                                 aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a>
                     </li>
                     <li>
-                        <a href="user-table.html" class="waves-effect"><i class="fa fa-user fa-fw"
+                        <a href="<%= path%>/user" class="waves-effect"><i class="fa fa-user fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Thành viên</span></a>
                     </li>
                     <li>
-                        <a href="role-table.html" class="waves-effect"><i class="fa fa-modx fa-fw"
+                        <a href="<%= path%>/role" class="waves-effect"><i class="fa fa-modx fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Quyền</span></a>
                     </li>
                     <li>
-                        <a href="groupwork.html" class="waves-effect"><i class="fa fa-table fa-fw"
+                        <a href="<%= path%>/groupwork" class="waves-effect"><i class="fa fa-table fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Công việc</span></a>
                     </li>
                     <li>
-                        <a href="task.html" class="waves-effect"><i class="fa fa-table fa-fw"
+                        <a href="<%= path%>/task" class="waves-effect"><i class="fa fa-table fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Công việc</span></a>
                     </li>
                     <li>
@@ -123,7 +129,7 @@
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Thêm mới công việc</h4>
+                        <h4 class="page-title">Cập nhật công việc</h4>
                     </div>
                 </div>
                 <!-- /.row -->
@@ -132,45 +138,65 @@
                     <div class="col-md-2 col-12"></div>
                     <div class="col-md-8 col-xs-12">
                         <div class="white-box">
-                            <form class="form-horizontal form-material">
+                            <form action="<%= path%>/profile-edit" method="post" class="form-horizontal form-material">
                                 <div class="form-group">
-                                    <label class="col-md-12">Tên dự án</label>
+                                    <label class="col-md-12">Dự án</label>
                                     <div class="col-md-12">
-                                        <input type="text" readonly value="Dự án CRM" class="form-control form-control-line">
+                                        <select class="form-control form-control-line" name="job_id02">
+                                             <c:forEach var="job" items="${reqAttributeJobList}">
+                                        	    <option value="${job.getId()}" ${job.getId()==reqAttributeJobId?"selected":""}>${job.getName()}</option>
+                                        	 </c:forEach>
+	
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Tên công việc</label>
                                     <div class="col-md-12">
-                                        <input type="text" readonly value="Thiết kế database" class="form-control form-control-line">
+                                        <input type="text" placeholder="Tên công việc"
+                                            class="form-control form-control-line" name="taskname02" value="${reqAttributeName}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">Người thực hiện</label>
+                                    <div class="col-md-12">
+                                        <select class="form-control form-control-line" name="user_id02">
+                                        	 <c:forEach var="user" items="${reqAttributeUserList}">
+                                        	    <option value="${user.getId()}"  ${user.getId()==reqAttributeUserId?"selected":"" }  >${user.getFullname()}</option>
+                                        	 </c:forEach>
+                                         
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày bắt đầu</label>
                                     <div class="col-md-12">
-                                        <input type="text" readonly value="05-07/2020" class="form-control form-control-line"> 
+                                        <input type="text" placeholder="dd/MM/yyyy"
+                                            class="form-control form-control-line" name="startdate02"  value=${reqAttributeStartDate!=""?reqAttributeStartDate:""}> 
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Ngày kết thúc</label>
                                     <div class="col-md-12">
-                                        <input type="text" readonly value="17-07/2020" class="form-control form-control-line"> 
+                                        <input type="text" placeholder="dd/MM/yyyy"
+                                            class="form-control form-control-line" name="enddate02" value=${reqAttributeEndDate!=""?reqAttributeEndDate:""}> 
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-md-12">Trạng thái</label>
                                     <div class="col-md-12">
-                                        <select class="form-control form-control-line">
-                                            <option>Chưa thực hiện</option>
-                                            <option selected>Đang thực hiện</option>
-                                            <option>Đã hoàn thành</option>
+                                        <select class="form-control form-control-line" name="status_id02">
+                                        	 <c:forEach var="status" items="${reqAttributeStatusList}">
+                                        	    <option value="${status.getId()}"  ${status.getId()==reqAttributeStatusId?"selected":"" } >${status.getName()}</option>
+                                        	 </c:forEach>
+                                         
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <button type="submit" class="btn btn-success">Lưu lại</button>
-                                        <a href="profile.html" class="btn btn-primary">Quay lại</a>
+                                        <a href="<%= path%>/profile" class="btn btn-primary">Quay lại</a>
                                     </div>
                                 </div>
                             </form>

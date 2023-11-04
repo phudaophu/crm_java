@@ -1,5 +1,7 @@
 package helloservlet.entity;
 
+import java.util.List;
+
 public class UserEntity {
 	
 	private int id; 
@@ -10,6 +12,16 @@ public class UserEntity {
 	private int idRole;
 	private String rolename;
 	
+	private List<TaskEntity> taskList;
+	
+	
+	
+	public List<TaskEntity> getTaskList() {
+		return taskList;
+	}
+	public void setTaskList(List<TaskEntity> taskList) {
+		this.taskList = taskList;
+	}
 	public int getId() {
 		return id;
 	}

@@ -32,7 +32,8 @@ public class JobRepository {
 				jobEntity.setStartDate(resultSet.getDate("start_date"));
 				jobEntity.setEndDate(resultSet.getDate("end_date"));
 			}
-
+			
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Lỗi findById job: " + e.getLocalizedMessage());
@@ -67,6 +68,8 @@ public class JobRepository {
 			preparedStatement.setDate(3, sqlDateEndDate);
 			preparedStatement.setInt(4, id);
 			count = preparedStatement.executeUpdate();
+			
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Lỗi update job: "+e.getLocalizedMessage());
@@ -87,6 +90,7 @@ public class JobRepository {
 			preparedStatement.setInt(1,id);
 			count = preparedStatement.executeUpdate();
 			
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Lỗi delete job: "+e.getLocalizedMessage());
@@ -117,6 +121,7 @@ public class JobRepository {
 			preparedStatement.setDate(3, sqlDateEndDate);
 
 			count = preparedStatement.executeUpdate();
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Lỗi insert jobs: " + e.getLocalizedMessage());
@@ -144,12 +149,13 @@ public class JobRepository {
 
 				jobList.add(jobEntity);
 			}
+			connection.close();
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Lỗi findAllJobs: " + e.getLocalizedMessage());
 		}
-
+		
 		return jobList;
 	}
 

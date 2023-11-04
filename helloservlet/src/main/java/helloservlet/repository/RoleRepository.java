@@ -31,7 +31,7 @@ public class RoleRepository {
 				roleEntity.setDesc(resultSet.getString("description"));
 			}
 
-			
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Lỗi findRoleById "+e.getLocalizedMessage());
@@ -52,7 +52,7 @@ public class RoleRepository {
 			preparedStatement.setInt(3, id);
 			
 			count = preparedStatement.executeUpdate();
-			
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Lỗi updateById roles "+e.getMessage());
@@ -72,7 +72,7 @@ public class RoleRepository {
 			PreparedStatement preparedStatement = connection.prepareStatement(query);
 			preparedStatement.setInt(1,id);
 			count = preparedStatement.executeUpdate();
-			
+			connection.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println("Lỗi "+e.getMessage());
@@ -97,6 +97,7 @@ public class RoleRepository {
 				listRole.add(roleEntity);
 			}
 			
+			connection.close();
 			
 		}catch(Exception e) {
 			System.out.println("Lỗi findAll "+e.getMessage());
@@ -124,7 +125,7 @@ public class RoleRepository {
 				// executeQuery : dành cho câu truy vấn là SELECT => luôn trả ra ResultSet
 				// executeUpdate : Tất cả câu truy vấn còn lại ngoài SELECT ví dụ: INSERT, UPDATE, DELETE, ... 
 					count = preparedStatement.executeUpdate();
-					
+					connection.close();
 				
 			 }catch(Exception e) {
 				 System.out.println("Lỗi insert "+e.getLocalizedMessage());

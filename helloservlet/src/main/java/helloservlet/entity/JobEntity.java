@@ -12,6 +12,8 @@ public class JobEntity {
 	private Date endDate;
 	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 	
+
+	
 	public String getStringStartDate() {
 		String stringDate="";
 		if(this.startDate!=null) {

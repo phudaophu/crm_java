@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %> 
+    
 <!DOCTYPE html>
 <!--
 This is a starter template page. Use this page to start your new project from
@@ -38,6 +42,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 
 <body>
+	<% String path = request.getContextPath();%>
     <!-- Preloader -->
     <div class="preloader">
         <div class="cssload-speeding-wheel"></div>
@@ -99,19 +104,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a>
                     </li>
                     <li>
-                        <a href="user-table.html" class="waves-effect"><i class="fa fa-user fa-fw"
+                        <a href="<%= path%>/user" class="waves-effect"><i class="fa fa-user fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Thành viên</span></a>
                     </li>
                     <li>
-                        <a href="role-table.html" class="waves-effect"><i class="fa fa-modx fa-fw"
+                        <a href="<%= path%>/role" class="waves-effect"><i class="fa fa-modx fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Quyền</span></a>
                     </li>
                     <li>
-                        <a href="groupwork.html" class="waves-effect"><i class="fa fa-table fa-fw"
+                        <a href="<%= path%>/groupwork" class="waves-effect"><i class="fa fa-table fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Dự án</span></a>
                     </li>
                     <li>
-                        <a href="task.html" class="waves-effect"><i class="fa fa-table fa-fw"
+                        <a href="<%= path%>/task" class="waves-effect"><i class="fa fa-table fa-fw"
                                 aria-hidden="true"></i><span class="hide-menu">Công việc</span></a>
                     </li>
                     <li>
@@ -131,7 +136,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <div class="container-fluid">
                 <div class="row bg-title">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <h4 class="page-title">Chi tiết công việc </h4>
+                     	<h4 class="page-title">Chi tiết công việc</h5>
+                        <h5 class="page-title">${reqAttributeName}</h4>
                     </div>
                     <div class="col-lg-9 col-sm-8 col-md-8 col-xs-12">
                         <ol class="breadcrumb">
@@ -142,6 +148,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- BEGIN THỐNG KÊ -->
+
                 <div class="row">
                     <!--col -->
                     <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
@@ -152,12 +159,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <h5 class="text-muted vb">CHƯA BẮT ĐẦU</h5>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-danger">20%</h3>
+                                    <h3 class="counter text-right m-t-15 text-danger">${reqAttributePctList[0]}%</h3>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="progress">
                                         <div class="progress-bar progress-bar-danger" role="progressbar"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
+                                            aria-valuenow="${reqAttributePctList[0]}" aria-valuemin="0" aria-valuemax="100" style="width: ${reqAttributePctList[0]}%">
                                         </div>
                                     </div>
                                 </div>
@@ -174,12 +181,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <h5 class="text-muted vb">ĐANG THỰC HIỆN</h5>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-megna">50%</h3>
+                                    <h3 class="counter text-right m-t-15 text-megna">${ reqAttributePctList[1]}%</h3>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="progress">
                                         <div class="progress-bar progress-bar-megna" role="progressbar"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 50%">
+                                            aria-valuenow="${reqAttributePctList[1]}" aria-valuemin="0" aria-valuemax="100" style="width: ${reqAttributePctList[1]}%">
                                         </div>
                                     </div>
                                 </div>
@@ -196,12 +203,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     <h5 class="text-muted vb">HOÀN THÀNH</h5>
                                 </div>
                                 <div class="col-md-6 col-sm-6 col-xs-6">
-                                    <h3 class="counter text-right m-t-15 text-primary">30%</h3>
+                                    <h3 class="counter text-right m-t-15 text-primary">${reqAttributePctList[2]}%</h3>
                                 </div>
                                 <div class="col-md-12 col-sm-12 col-xs-12">
                                     <div class="progress">
                                         <div class="progress-bar progress-bar-primary" role="progressbar"
-                                            aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 30%">
+                                            aria-valuenow="${reqAttributePctList[2]}" aria-valuemin="0" aria-valuemax="100" style="width: ${reqAttributePctList[2]}%">
                                         </div>
                                     </div>
                                 </div>
@@ -213,7 +220,88 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- END THỐNG KÊ -->
 
                 <!-- BEGIN DANH SÁCH CÔNG VIỆC -->
-                <div class="row">
+                <c:forEach var="user" items="${reqAttributeUserList}">
+	                <div class="row">
+	                    <div class="col-xs-12">
+	                        <a href="#" class="group-title">
+	                            <img width="30" src="plugins/images/users/pawandeep.jpg" class="img-circle" />
+	                            <span>${user.getFullname()}</span>
+	                        </a>
+	                    </div>
+	                    <div class="col-md-4">
+	                        <div class="white-box">
+	                            <h3 class="box-title">Chưa thực hiện</h3>
+	                            <div class="message-center">
+	                            	<c:forEach var="task" items="${user.getTaskList()}">
+		                            	<c:if test="${task.getIdStatus() == 1}">
+			                            	<a href="#">
+			                                    <div class="mail-contnet">
+			                                        <h5>${task.getName()}</h5> <span class="mail-desc">Bắt đầu: ${task.getStringStartDate()}</span> 
+			                                        <span class="mail-desc">Kết thúc: ${task.getStringEndDate()}</span>
+			                                    </div>
+		                                	</a>
+		                            	</c:if>
+
+	                                </c:forEach>
+	                              <!--   <a href="#">
+	                                    <div class="mail-contnet">
+	                                        <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
+	                                        <span class="time">9:10 AM</span>
+	                                    </div>
+	                                </a> -->
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-md-4">
+	                        <div class="white-box">
+	                            <h3 class="box-title">Đang thực hiện</h3>
+	                            <div class="message-center">
+	                               <c:forEach var="task" items="${ user.getTaskList()}">
+		                            	<c:if test="${task.getIdStatus() == 2}">
+			                            	<a href="#">
+			                                    <div class="mail-contnet">
+			                                        <h5>${task.getName()}</h5> <span class="mail-desc">Bắt đầu: ${task.getStringStartDate()}</span>
+			                                        <span class="mail-desc">Kết thúc: ${task.getStringEndDate()}</span>
+			                                    </div>
+		                                	</a>
+		                            	</c:if>
+	                                </c:forEach>
+	                               <!--  <a href="#">
+	                                    <div class="mail-contnet">
+	                                        <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
+	                                        <span class="time">9:10 AM</span>
+	                                    </div>
+	                                </a> -->
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-md-4">
+	                        <div class="white-box">
+	                            <h3 class="box-title">Đã hoàn thành</h3>
+	                            <div class="message-center">
+	                                <c:forEach var="task" items="${user.getTaskList()}">
+		                            	<c:if test="${ task.getIdStatus() == 3}">
+			                            	<a href="#">
+			                                    <div class="mail-contnet">
+			                                        <h5>${task.getName()}</h5> <span class="mail-desc">Bắt đầu: ${task.getStringStartDate()}</span>
+			                                        <span class="mail-desc">Kết thúc: ${task.getStringEndDate()}</span>
+			                                    </div>
+		                                	</a>
+		                            	</c:if>
+	                                </c:forEach>
+	                               <!--  <a href="#">
+	                                    <div class="mail-contnet">
+	                                        <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
+	                                        <span class="time">9:10 AM</span>
+	                                    </div>
+	                                </a> -->
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+                </c:forEach>
+                
+                <!-- <div class="row">
                     <div class="col-xs-12">
                         <a href="#" class="group-title">
                             <img width="30" src="plugins/images/users/pawandeep.jpg" class="img-circle" />
@@ -277,72 +365,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <a href="#" class="group-title">
-                            <img width="30" src="plugins/images/users/pawandeep.jpg" class="img-circle" />
-                            <span>Pavan kumar</span>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="white-box">
-                            <h3 class="box-title">Chưa thực hiện</h3>
-                            <div class="message-center">
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
-                                            class="time">9:30 AM</span>
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
-                                        <span class="time">9:10 AM</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="white-box">
-                            <h3 class="box-title">Đang thực hiện</h3>
-                            <div class="message-center">
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
-                                            class="time">9:30 AM</span>
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
-                                        <span class="time">9:10 AM</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="white-box">
-                            <h3 class="box-title">Đã hoàn thành</h3>
-                            <div class="message-center">
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Pavan kumar</h5> <span class="mail-desc">Just see the my admin!</span> <span
-                                            class="time">9:30 AM</span>
-                                    </div>
-                                </a>
-                                <a href="#">
-                                    <div class="mail-contnet">
-                                        <h5>Sonu Nigam</h5> <span class="mail-desc">I've sung a song! See you at</span>
-                                        <span class="time">9:10 AM</span>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </div> -->
                 <!-- END DANH SÁCH CÔNG VIỆC -->
             </div>
             <!-- /.container-fluid -->

@@ -29,6 +29,7 @@ public class StatusRepository {
 				statusEntity.setName(resultSet.getString("name"));
 				statusList.add(statusEntity);
 			}
+			connection.close();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -55,7 +56,7 @@ public class StatusRepository {
 				statusEntity.setId(resultSet.getInt("id"));
 				statusEntity.setName(resultSet.getString("name"));
 			}
-			
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Lỗi findById Status: "+e.getLocalizedMessage());

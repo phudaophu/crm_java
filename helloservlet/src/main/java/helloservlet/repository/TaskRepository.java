@@ -14,6 +14,115 @@ import helloservlet.entity.TaskEntity;
 public class TaskRepository {
 	
 	
+	public List<TaskEntity> findByUserId (int userId){
+		List<TaskEntity> taskList = new ArrayList<TaskEntity>();
+		
+		String query = "SELECT * FROM tasks WHERE user_id=? ORDER BY job_id, status_id;";
+		
+		Connection connection = MysqlConfig.getConnection();
+		
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, userId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				
+				TaskEntity taskEntity = new TaskEntity();
+				taskEntity.setId(resultSet.getInt("id"));
+				taskEntity.setName(resultSet.getString("name"));
+				taskEntity.setStartDate(resultSet.getDate("start_date"));
+				taskEntity.setEndDate(resultSet.getDate("end_date"));
+				taskEntity.setIdUser(resultSet.getInt("user_id"));
+				taskEntity.setIdJob(resultSet.getInt("job_id"));
+				taskEntity.setIdStatus(resultSet.getInt("status_id"));
+				
+				taskList.add(taskEntity);
+			}
+			connection.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Lỗi findByUserId task: "+e.getLocalizedMessage());
+		}
+		
+		return taskList;
+		
+		
+	}
+	
+	
+	public List<TaskEntity> findByJobIdAndStatusId (int JobId, int statusId) {
+		List<TaskEntity> taskList = new ArrayList<TaskEntity>();
+		
+		String query = "SELECT * FROM tasks WHERE job_id=? AND status_id=?;";
+		
+		Connection connection = MysqlConfig.getConnection();
+		
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, JobId);
+			preparedStatement.setInt(2, statusId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				
+				TaskEntity taskEntity = new TaskEntity();
+				taskEntity.setId(resultSet.getInt("id"));
+				taskEntity.setName(resultSet.getString("name"));
+				taskEntity.setStartDate(resultSet.getDate("start_date"));
+				taskEntity.setEndDate(resultSet.getDate("end_date"));
+				taskEntity.setIdUser(resultSet.getInt("user_id"));
+				taskEntity.setIdJob(resultSet.getInt("job_id"));
+				taskEntity.setIdStatus(resultSet.getInt("status_id"));
+				
+				taskList.add(taskEntity);
+			}
+			connection.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Lỗi findByUserIdAndStatusId task: "+e.getLocalizedMessage());
+		}
+		
+		return taskList;
+	}
+	
+	
+	public List<TaskEntity> findByJobIdAndUserId(int jobId, int userId){
+		List<TaskEntity> taskList = new ArrayList<TaskEntity>();
+		
+		String query = "SELECT * FROM tasks WHERE job_id=? AND user_id =?;";
+		
+		Connection connection = MysqlConfig.getConnection();
+		
+		try {
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, jobId);
+			preparedStatement.setInt(2, userId);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				
+				TaskEntity taskEntity = new TaskEntity();
+				taskEntity.setId(resultSet.getInt("id"));
+				taskEntity.setName(resultSet.getString("name"));
+				taskEntity.setStartDate(resultSet.getDate("start_date"));
+				taskEntity.setEndDate(resultSet.getDate("end_date"));
+				taskEntity.setIdUser(resultSet.getInt("user_id"));
+				taskEntity.setIdJob(resultSet.getInt("job_id"));
+				taskEntity.setIdStatus(resultSet.getInt("status_id"));
+				
+				taskList.add(taskEntity);
+			}
+			connection.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Lỗi findByJobIdAndUserId task: "+e.getLocalizedMessage());
+		}
+		
+		return taskList;
+	}
 
 	public List<TaskEntity> findByUserIdAndStatusId (int userId, int statusId) {
 		List<TaskEntity> taskList = new ArrayList<TaskEntity>();
@@ -41,6 +150,7 @@ public class TaskRepository {
 				
 				taskList.add(taskEntity);
 			}
+			connection.close();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -128,6 +238,7 @@ public class TaskRepository {
 			preparedStatement.setInt(6, statusId);
 			count = preparedStatement.executeUpdate();
 			
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Lỗi insert task: "+e.getLocalizedMessage());
@@ -161,6 +272,7 @@ public class TaskRepository {
 				
 				taskList.add(taskEntity);
 			}
+			connection.close();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

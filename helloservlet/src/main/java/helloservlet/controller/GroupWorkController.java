@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import helloservlet.entity.JobEntity;
+import helloservlet.entity.TaskEntity;
+import helloservlet.entity.UserEntity;
 import helloservlet.service.GroupWorkService;
 
-@WebServlet(name="groupWorkController", urlPatterns = {"/groupwork","/groupwork-add","/groupwork-delete","/groupwork-update"})
+@WebServlet(name="groupWorkController", urlPatterns = {"/groupwork","/groupwork-add","/groupwork-delete","/groupwork-update","/groupwork-details"})
 public class GroupWorkController extends HttpServlet{
 	GroupWorkService groupWorkService = new GroupWorkService();
 	int temp_jobId = -1;
@@ -31,6 +33,8 @@ public class GroupWorkController extends HttpServlet{
 			doGetGroupWorkDelete(req,resp);
 		}else if (path.equals("/groupwork-update")) {
 			doGetGroupWorkUpdate(req,resp);
+		}else if (path.equals("/groupwork-details")) {
+			doGetGroupWorkDetails(req,resp);
 		}
 	}
 	
@@ -46,6 +50,31 @@ public class GroupWorkController extends HttpServlet{
 			doPostGroupWorkUpdate(req,resp);
 		}
 	}
+	
+	public void doGetGroupWorkDetails(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		int id =Integer.parseInt(req.getParameter("id"));
+		String name = req.getParameter("name");
+		System.out.println("GroupWork: "+name);
+		List<UserEntity> userList=groupWorkService.findUserById(id);
+		
+		for ( UserEntity user : userList) {
+			int taskNumber = user.getTaskList().size();
+			System.out.println("user name: "+user.getFullname());
+			System.out.println("Task Number: "+taskNumber);
+		}
+		// Calculate percentage
+		int[] percentListExchange = groupWorkService.calculateTaskPercent(id);
+		
+		
+		req.setAttribute("reqAttributeName", name);
+		req.setAttribute("reqAttributeUserList", userList);
+		
+		req.setAttribute("reqAttributePctList", percentListExchange);
+		
+		req.getRequestDispatcher("groupwork-details.jsp").forward(req, resp);
+	}
+	
 	
 	protected void doGetGroupWork (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<JobEntity> jobList = groupWorkService.findAllJobs();

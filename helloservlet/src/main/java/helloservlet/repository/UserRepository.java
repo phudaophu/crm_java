@@ -21,6 +21,39 @@ public class UserRepository {
 	 * 
 	 * */
 	
+	public List<UserEntity> findByJobId(int jobId){
+		
+		String query = "SELECT * FROM users WHERE id in (SELECT user_id FROM tasks WHERE job_id = ?) ORDER BY fullname;";
+		
+		Connection connection =  MysqlConfig.getConnection();
+
+		List<UserEntity> userList = new ArrayList <UserEntity>();
+
+		 try {
+
+			PreparedStatement preparedStatement = connection.prepareStatement(query);
+			preparedStatement.setInt(1, jobId);
+			 
+			ResultSet resultSet = preparedStatement.executeQuery();
+			
+			while(resultSet.next()) {
+				UserEntity entity = new UserEntity();
+				entity.setId(resultSet.getInt("id")); // resultSet.getInt("id"): lấy giá trị cột Id. setId: gán vào thuộc tính Id của entity thông qua setter
+				entity.setFullname(resultSet.getString("fullname"));
+				userList.add(entity);
+			}
+			connection.close();
+			
+		 }catch(Exception e) {
+			 System.out.println("Lỗi findByJobId "+e.getLocalizedMessage());
+		 }
+		
+		return userList;
+		
+	}
+	
+	
+	
 	public UserEntity findById(int id) {
 		UserEntity userEntity = new UserEntity();
 		String query = "SELECT * FROM users WHERE id=? ;";
@@ -37,6 +70,7 @@ public class UserRepository {
 				userEntity.setPhonenumber(resultSet.getString("phonenumber"));
 				userEntity.setIdRole(resultSet.getInt("role_id"));
 			}
+			connection.close();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -59,6 +93,7 @@ public class UserRepository {
 			preparedStatement.setInt(3,idRole);
 			preparedStatement.setInt(4,id);
 			count = preparedStatement.executeUpdate();
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Lỗi updatePhoneNoIdRoleById user: "+e.getLocalizedMessage());
@@ -81,6 +116,7 @@ public class UserRepository {
 			preparedStatement.setInt(4,idRole);
 			preparedStatement.setInt(5,id);
 			count = preparedStatement.executeUpdate();
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Lỗi updateById user: "+e.getLocalizedMessage());
@@ -98,7 +134,7 @@ public class UserRepository {
 			PreparedStatement preparedStatement= connection.prepareStatement(query);
 			preparedStatement.setInt(1, id);
 			count = preparedStatement.executeUpdate();
-			
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Lỗi delete user: "+e.getLocalizedMessage());
@@ -113,7 +149,7 @@ public class UserRepository {
 //		String query = "SELECT * \r\n"
 //				+ "FROM users u \r\n"
 //				+ "where u.email ='"+email+"' AND u.password ='"+password+"'";
-		String query = "SELECT * FROM users";
+		String query = "SELECT * FROM users ORDER BY fullname";
 		
 		// Bước 3: Mở kết nối csdl và truyền câu query cho JDBC thông qua PreparedStatement
 		
@@ -143,7 +179,9 @@ public class UserRepository {
 				userEntity.setIdRole(resultSet.getInt("role_id"));
 				listUser.add(userEntity);
 			}
-		
+			
+			connection.close();
+			
 		 }catch(Exception e) {
 			 System.out.println("Lỗi findAllUser "+e.getLocalizedMessage());
 		 }
@@ -165,7 +203,7 @@ public class UserRepository {
 			preparedStatement.setInt(5, idRole);
 			
 			count = preparedStatement.executeUpdate();
-			
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Lỗi insert user: "+e.getMessage());
@@ -179,7 +217,7 @@ public class UserRepository {
 //		String query = "SELECT * \r\n"
 //				+ "FROM users u \r\n"
 //				+ "where u.email ='"+email+"' AND u.password ='"+password+"'";
-		String query = "SELECT * FROM users u where u.email =? AND u.password =?";
+		String query = "SELECT * FROM users u where u.email =? AND u.password =? ORDER BY id LIMIT 1;";
 		
 		// Bước 3: Mở kết nối csdl và truyền câu query cho JDBC thông qua PreparedStatement
 		
@@ -207,9 +245,12 @@ public class UserRepository {
 				UserEntity entity = new UserEntity();
 				entity.setId(resultSet.getInt("id")); // resultSet.getInt("id"): lấy giá trị cột Id. setId: gán vào thuộc tính Id của entity thông qua setter
 				entity.setFullname(resultSet.getString("fullname"));
+				entity.setEmail(resultSet.getString("email"));
 				listUser.add(entity);
 			}
 		
+			connection.close();
+			
 		 }catch(Exception e) {
 			 System.out.println("Lỗi findByEmailAndPassword "+e.getLocalizedMessage());
 		 }

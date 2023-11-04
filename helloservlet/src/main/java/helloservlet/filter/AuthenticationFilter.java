@@ -23,7 +23,7 @@ import helloservlet.entity.UserEntity;
 
 
 
-@WebFilter(filterName = "authenFilter",urlPatterns = {"/role-add"})
+@WebFilter(filterName = "authenFilter",urlPatterns = {"/role-add","/profile"})
 public class AuthenticationFilter implements Filter{
 
 	@Override
