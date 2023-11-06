@@ -72,7 +72,7 @@
                             <a class="profile-pic dropdown-toggle" data-toggle="dropdown" href="#">
                                 <img src="plugins/images/users/varun.jpg" alt="user-img" width="36"
                                     class="img-circle" />
-                                <b class="hidden-xs">Cybersoft</b>
+                                <b class="hidden-xs">${reqAtrtibuteUserFullname}</b>
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a href="profile.html">Thông tin cá nhân</a></li>

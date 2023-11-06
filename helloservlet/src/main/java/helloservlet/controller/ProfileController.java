@@ -27,6 +27,8 @@ public class ProfileController extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//super.doGet(req, resp);
+		// Display fullname 
+
 		String path = req.getServletPath();
 		if (path.equals("/profile")) {
 			doGetProfile(req,resp);
@@ -45,6 +47,14 @@ public class ProfileController extends HttpServlet{
 			doPostProfileEdit(req,resp);
 		}
 	}
+	
+	/*
+	 * protected void getLoginUser(HttpServletRequest req, HttpServletResponse resp)
+	 * throws ServletException, IOException { //
+	 * 
+	 * 
+	 * }
+	 */
 	
 	protected void doGetProfileEdit (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// Create selecting option for job and user

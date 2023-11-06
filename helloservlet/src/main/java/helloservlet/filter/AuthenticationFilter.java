@@ -23,7 +23,7 @@ import helloservlet.entity.UserEntity;
 
 
 
-@WebFilter(filterName = "authenFilter",urlPatterns = {"/role-add","/profile"})
+@WebFilter(filterName = "authenFilter",urlPatterns = {"/index","/home","/role-add","/profile","/profile-edit","/groupwork","/groupwork-add","/groupwork-delete","/groupwork-update","/groupwork-details","/user-add","/user","/user-delete","/user-update","/user-details","/role","/role-delete","/role-update","/task","/task-add","/task-update","/task-delete"})
 public class AuthenticationFilter implements Filter{
 
 	@Override
@@ -76,17 +76,22 @@ public class AuthenticationFilter implements Filter{
 				// executeUpdate : Tất cả câu truy vấn còn lại ngoài SELECT ví dụ: INSERT, UPDATE, DELETE, ... 
 				ResultSet resultSet = preparedStatement.executeQuery();
 				List<UserEntity> userList = new ArrayList <UserEntity>();
+				String loginUserFullname = "";
 				
 				while(resultSet.next()) {
 					UserEntity entity = new UserEntity();
 					entity.setId(resultSet.getInt("id")); // lấy giá trị cột Id gán vào Id của entity thông qua setter
+					
+					loginUserFullname = resultSet.getString("fullname");
 					entity.setFullname(resultSet.getString("fullname"));
+					
 					userList.add(entity);
 				}
 				
 				if(userList.size()>0) {
 					System.out.println("Xác thực thành công");
 					// Cho phép đi vào Link mà người dùng đang gọi mà kích hoạt filter
+					req.setAttribute("reqAtrtibuteUserFullname", loginUserFullname);
 					chain.doFilter(req,resp);
 				}
 				else {
