@@ -106,7 +106,7 @@
                     </li>
                     <li>
                         <a href="<%= path%>/groupwork" class="waves-effect"><i class="fa fa-table fa-fw"
-                                aria-hidden="true"></i><span class="hide-menu">Công việc</span></a>
+                                aria-hidden="true"></i><span class="hide-menu">Dự án</span></a>
                     </li>
                     <li>
                         <a href="<%= path%>/task" class="waves-effect"><i class="fa fa-table fa-fw"
